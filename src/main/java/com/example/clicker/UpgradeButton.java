@@ -32,7 +32,7 @@ public class UpgradeButton extends Button {
         this.setCursor(Cursor.HAND);
         this.setHeight(50);
         this.setWidth(150);
-        this.setText(text + "COST: "+ cost +"\nYou have: 0");
+        this.setText(text + "  COST: "+ cost +"\nYou have: 0");
 
         StackPane content = new StackPane(new Label(description));
         content.setPadding(new Insets(10,5,10,5));
@@ -46,11 +46,11 @@ public class UpgradeButton extends Button {
         this.setOnMousePressed(_ -> {
             UpgradeButton.this.setBackground(Background.fill(Paint.valueOf("lightgray")));
             UpgradeButton.this.setCursor(Cursor.CLOSED_HAND);
-            if (HelloApplication.getScore() >= cost) {
-                HelloApplication.setScore(HelloApplication.getScore() - cost);
+            if (ClickerApplication.getScore() >= cost) {
+                ClickerApplication.setScore(ClickerApplication.getScore() - cost);
                 upgradeCount++;
             }
-            HelloApplication.setScoreLabelText();
+            ClickerApplication.setScoreLabelText();
         });
 
         this.setOnMouseReleased(_ -> {
@@ -77,8 +77,8 @@ public class UpgradeButton extends Button {
 
                     if (counter >= additionDelay * 100) {
                         Platform.runLater(() -> {
-                            HelloApplication.setScore(HelloApplication.getScore() + upgradeCount * additionAmount);
-                            HelloApplication.setScoreLabelText();
+                            ClickerApplication.setScore(ClickerApplication.getScore() + upgradeCount * additionAmount);
+                            ClickerApplication.setScoreLabelText();
                         });
                         counter = 0;
                     }
@@ -91,7 +91,7 @@ public class UpgradeButton extends Button {
                         this.cost = initialCost * (upgradeCount + 1);
                     }
 
-                    if(HelloApplication.getScore() < cost){
+                    if(ClickerApplication.getScore() < cost){
                         this.setBackground(Background.fill(Paint.valueOf("darkgrey")));
                     } else if (!this.isPressed()){
                         this.setBackground(Background.fill(Paint.valueOf(BACKGROUND_COLOR)));

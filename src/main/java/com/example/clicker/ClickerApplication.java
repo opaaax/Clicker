@@ -10,14 +10,16 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 
-public class HelloApplication extends Application {
+public class ClickerApplication extends Application {
     private static int score = 0;
     private static final Label scoreLabel = new Label();
+    public static int mouseClickAmount = 1;
 
     @Override
     public void start(Stage primaryStage){
@@ -35,7 +37,13 @@ public class HelloApplication extends Application {
 
         VBox upgradesButtons = new VBox();
         upgradesButtons.setSpacing(5);
-        upgradesButtons.setBackground(Background.fill(Paint.valueOf("grey")));
+        upgradesButtons.setBackground(Background.fill(Color.SILVER));
+        upgradesButtons.setBorder(Border.stroke(Paint.valueOf("black")));
+
+        VBox mouseUpgradesButtons = new VBox();
+        mouseUpgradesButtons.setSpacing(10);
+        mouseUpgradesButtons.setAlignment(Pos.CENTER);
+        mouseUpgradesButtons.setBackground(Background.fill(Color.SILVER));
         upgradesButtons.setBorder(Border.stroke(Paint.valueOf("black")));
 
         Group boxGroup = new Group();
@@ -44,7 +52,7 @@ public class HelloApplication extends Application {
         boxGroup.setRotate(40);
         boxGroup.setRotationAxis(Rotate.X_AXIS);
         boxGroup.setOnMouseClicked(_ -> {
-            score++;
+            score += mouseClickAmount;
             setScoreLabelText();
         });
 
@@ -56,6 +64,7 @@ public class HelloApplication extends Application {
         borderPane.getCenter().setCursor(Cursor.HAND);
         borderPane.setTop(labelBox);
         borderPane.setLeft(upgradesButtons);
+        borderPane.setBottom(mouseUpgradesButtons);
 
         Scene scene = new Scene(borderPane, 500, 500);
         scene.setCamera(camera);
@@ -74,6 +83,22 @@ public class HelloApplication extends Application {
                 This time it is a strange rotating cube ;)))))
                 """, scene));
 
+        upgradesButtons.getChildren().add(new UpgradeButtonComponent(5, 2, "A cube factory!", 100,
+                """
+                A Factory !!!!!??!??!??!
+                That produces cubes ??!??!??!
+                Unfathomable.
+                """, scene));
+
+        upgradesButtons.getChildren().add(new UpgradeButtonComponent(10, 1, "A hypercube", 1000,
+                """
+                The ultimate cube.
+                You might even call it hyper.
+                A hypercube.
+                """, scene));
+
+        mouseUpgradesButtons.getChildren().add(new MouseUpgradeButton());
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("Cool clicker !!!");
         primaryStage.setOnCloseRequest(_ -> {
@@ -88,7 +113,7 @@ public class HelloApplication extends Application {
     }
 
     public static void setScore(int score) {
-        HelloApplication.score = score;
+        ClickerApplication.score = score;
     }
 
     public static void setScoreLabelText(){
