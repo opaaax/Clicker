@@ -1,6 +1,6 @@
-# Cool Clicker
+# A clicker game project
 
-Cool Clicker is a fun and interactive 3D clicker game built with Java and JavaFX.
+this is a 3D clicker game built with Java and JavaFX.
 
 ## Gameplay
 
